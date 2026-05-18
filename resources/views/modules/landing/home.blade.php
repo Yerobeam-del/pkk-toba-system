@@ -11,6 +11,7 @@
     @include('modules.landing.sections.stats')
 </div>
 
+@include('modules.landing.sections.page-struktur')
 @include('modules.landing.sections.page-aplikasi')
 @include('modules.landing.sections.page-berita')
 @include('modules.landing.sections.page-desa')

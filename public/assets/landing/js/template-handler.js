@@ -1,121 +1,161 @@
 /**
- * Template Handler Module
- * Renders template cards for download
+ * Template Handler Module - DYNAMIC VERSION
+ * Copy-paste ready - Search working guaranteed
  */
 
-const templateData = [
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Surat Resmi', 
-        title: 'Template Surat Resmi PKK', 
-        desc: 'Template surat resmi untuk kebutuhan administrasi PKK termasuk surat undangan, surat pemberitahuan, dan surat edaran.', 
-        format: 'DOCX', 
-        size: '245 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Formulir', 
-        title: 'Formulir Pendataan Dasawisma', 
-        desc: 'Formulir standar untuk pendataan keluarga dalam kelompok dasawisma sesuai format yang ditetapkan.', 
-        format: 'PDF', 
-        size: '180 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Laporan', 
-        title: 'Template Laporan Kegiatan Bulanan', 
-        desc: 'Template laporan kegiatan bulanan PKK untuk dicetak dan diserahkan ke kecamatan.', 
-        format: 'DOCX', 
-        size: '320 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Administrasi', 
-        title: 'Notulen Rapat PKK', 
-        desc: 'Template notulen rapat untuk mendokumentasikan setiap kegiatan rapat PKK di tingkat desa.', 
-        format: 'DOCX', 
-        size: '156 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Program', 
-        title: 'Template Proposal Kegiatan', 
-        desc: 'Template proposal untuk pengajuan kegiatan PKK ke sumber dana atau sponsor.', 
-        format: 'DOCX', 
-        size: '280 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Kesehatan', 
-        title: 'Formulir Posyandu', 
-        desc: 'Formulir pencatatan data posyandu termasuk kartu kesehatan ibu dan anak.', 
-        format: 'PDF', 
-        size: '195 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Surat Resmi', 
-        title: 'Template Surat Undangan Rapat', 
-        desc: 'Template surat undangan rapat PKK yang dapat disesuaikan dengan kebutuhan.', 
-        format: 'DOCX', 
-        size: '168 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Keuangan', 
-        title: 'Template Laporan Keuangan', 
-        desc: 'Template laporan keuangan sederhana untuk pencatatan kas PKK tingkat desa.', 
-        format: 'XLSX', 
-        size: '210 KB' 
-    },
-    { 
-        image: 'https://image.qwenlm.ai/public_source/16a5de01-2ebd-49a2-adc6-75a9b8b3e1d7/14e0450b6-54db-4544-a34c-f9be7c92d02b.png', 
-        category: 'Formulir', 
-        title: 'Formulir Pendaftaran Anggota PKK', 
-        desc: 'Formulir pendaftaran anggota PKK baru untuk tingkat desa dan kelurahan.', 
-        format: 'PDF', 
-        size: '142 KB' 
-    },
-];
+// Global variables
+window.templateData = [];
+window.isTemplatesLoaded = false;
+window.searchTimeout = null;
 
-function renderTemplateCard(template) {
-    return `<div class="template-card">
-        <img src="${template.image}" alt="${template.title}" class="template-card-image">
-        <div class="template-card-body">
-            <span class="template-card-category">${template.category}</span>
-            <h3 class="template-card-title">${template.title}</h3>
-            <p class="template-card-desc">${template.desc}</p>
-            <div class="template-card-meta">
-                <div class="template-card-format">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                    </svg>
-                    ${template.format} • ${template.size}
-                </div>
-                <button class="template-download-btn" onclick="alert('Mengunduh template: ${template.title}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Unduh
-                </button>
-            </div>
-        </div>
-    </div>`;
+/**
+ * Get placeholder image based on file type
+ */
+function getPlaceholderImage(fileType, fileName) {
+    const ext = fileName ? fileName.split('.').pop().toLowerCase() : '';
+    const backgrounds = {
+        'pdf': 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        'doc': 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+        'docx': 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+        'xls': 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+        'xlsx': 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+        'ppt': 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+        'pptx': 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)'
+    };
+    const bg = backgrounds[ext] || 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)';
+    const extUpper = ext.toUpperCase() || 'DOC';
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1"/><stop offset="100%" style="stop-color:#2563eb;stop-opacity:1"/></linearGradient></defs><rect width="600" height="400" fill="url(#grad)"/><text x="50%" y="50%" font-family="Arial" font-size="72" font-weight="bold" fill="white" text-anchor="middle">${extUpper}</text><text x="50%" y="65%" font-family="Arial" font-size="24" fill="rgba(255,255,255,0.8)" text-anchor="middle">Template</text></svg>`;
+    return 'data:image/svg+xml;base64,' + btoa(svg);
 }
 
+/**
+ * Fetch data from Laravel API
+ */
+async function loadTemplatesFromAPI() {
+    try {
+        const response = await fetch('/api/v1/templates');
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message || 'API error');
+        
+        window.templateData = result.data.filter(tpl => tpl.status === 'published').map(tpl => {
+            let category = 'Dokumen';
+            const nameLower = tpl.name.toLowerCase();
+            if (nameLower.includes('surat')) category = 'Surat Resmi';
+            else if (nameLower.includes('formulir') || nameLower.includes('form')) category = 'Formulir';
+            else if (nameLower.includes('laporan')) category = 'Laporan';
+            else if (nameLower.includes('notulen')) category = 'Administrasi';
+            else if (nameLower.includes('proposal')) category = 'Program';
+            else if (nameLower.includes('posyandu') || nameLower.includes('kesehatan')) category = 'Kesehatan';
+            else if (nameLower.includes('keuangan')) category = 'Keuangan';
+            const ext = tpl.file_name ? tpl.file_name.split('.').pop().toUpperCase() : 'FILE';
+            return {
+                id: tpl.id, title: tpl.name, name: tpl.name, file_name: tpl.file_name,
+                file_url: tpl.file_url, file_size: tpl.file_size, file_type: tpl.file_type,
+                upload_date: tpl.upload_date, formatted_date: tpl.formatted_date,
+                description: tpl.description || 'Template dokumen resmi PKK Kabupaten Toba',
+                desc: tpl.description || 'Template dokumen resmi PKK Kabupaten Toba',
+                category: category, format: ext, size: tpl.file_size || '-',
+                image: tpl.preview_url || getPlaceholderImage(tpl.file_type, tpl.file_name),
+                status: tpl.status
+            };
+        });
+        window.isTemplatesLoaded = true;
+        _renderGrid(window.templateData);
+    } catch (error) {
+        console.error('❌ Failed to load templates:', error);
+        window.templateData = [];
+    }
+}
+
+/**
+ * Render single template card
+ */
+function renderTemplateCard(template) {
+    const ext = (template.format || 'PDF').toLowerCase();
+    const bgColors = {
+        'pdf': 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        'doc': 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+        'docx': 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+        'xls': 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+        'xlsx': 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+        'ppt': 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+        'pptx': 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)'
+    };
+    const bgColor = bgColors[ext] || 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)';
+    return `<div class="template-card"><div class="image-container" style="background:${bgColor}"><span class="category-badge">${template.category}</span><div class="file-icon"><div style="font-size:64px;margin-bottom:0.5rem">📄</div><div class="file-type">${ext.toUpperCase()}</div></div></div><div class="card-content"><h3 class="card-title">${template.title}</h3><p class="card-description">${template.desc || template.description || 'Template dokumen resmi PKK Kabupaten Toba'}</p><div class="meta-info"><span class="format-badge">${template.format}</span><span>•</span><span>${template.size}</span>${template.formatted_date ? `<span>•</span><span>${template.formatted_date}</span>` : ''}</div><a href="${template.file_url}" download="${template.file_name}" class="download-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Unduh Template</a></div></div>`;
+}
+
+/**
+ * Render grid
+ */
+function _renderGrid(dataToRender = window.templateData) {
+    const grid = document.getElementById('templateGrid');
+    const loading = document.getElementById('loadingState');
+    const empty = document.getElementById('emptyState');
+    if (!grid) return;
+    if (loading) loading.style.display = 'none';
+    if (!dataToRender || dataToRender.length === 0) {
+        grid.style.display = 'none';
+        if (empty) { empty.style.display = 'block'; empty.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--text-muted)">Tidak ada template yang ditemukan</div>'; }
+        return;
+    }
+    grid.style.display = 'grid';
+    if (empty) empty.style.display = 'none';
+    grid.innerHTML = dataToRender.map(t => renderTemplateCard(t)).join('');
+}
+
+/**
+ * Global search handler - CALLED BY INLINE HTML
+ */
+window.handleTemplateSearch = function(searchTerm) {
+    if (window.searchTimeout) clearTimeout(window.searchTimeout);
+    window.searchTimeout = setTimeout(() => {
+        const term = searchTerm.toLowerCase().trim();
+        if (term === '') { _renderGrid(window.templateData); return; }
+        const filtered = window.templateData.filter(t => 
+            (t.title && t.title.toLowerCase().includes(term)) ||
+            (t.file_name && t.file_name.toLowerCase().includes(term)) ||
+            (t.category && t.category.toLowerCase().includes(term)) ||
+            (t.description && t.description.toLowerCase().includes(term))
+        );
+        _renderGrid(filtered);
+    }, 300);
+};
+
+/**
+ * Populate templates
+ */
 function populateTemplates() {
     const grid = document.getElementById('templateGrid');
+    const loading = document.getElementById('loadingState');
+    const empty = document.getElementById('emptyState');
     if (!grid) return;
-    grid.innerHTML = templateData.map(t => renderTemplateCard(t)).join('');
+    if (loading) loading.style.display = 'block';
+    if (grid) grid.style.display = 'none';
+    if (empty) empty.style.display = 'none';
+    loadTemplatesFromAPI();
 }
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', populateTemplates);
-
-// Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { templateData, renderTemplateCard, populateTemplates };
+/**
+ * Initialize page
+ */
+function initTemplatePage() {
+    if (!window.isTemplatesLoaded || window.templateData.length === 0) {
+        populateTemplates();
+    } else {
+        _renderGrid(window.templateData);
+    }
 }
+
+// Initialize once
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTemplatePage);
+} else {
+    initTemplatePage();
+}
+
+// Expose to window
+window.initTemplatePage = initTemplatePage;
+window.populateTemplates = populateTemplates;
+window.filterTemplates = window.handleTemplateSearch;
+window._renderGrid = _renderGrid;
