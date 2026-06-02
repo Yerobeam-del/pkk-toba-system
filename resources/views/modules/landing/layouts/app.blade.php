@@ -34,13 +34,10 @@
     {{-- News Modal --}}
     @include('modules.landing.partials.news-modal')
     
-    {{-- Global Config --}}
+    {{-- Global Config & Init --}}
     <script>
         window.Laravel = { csrfToken: '{{ csrf_token() }}' };
-        window.LANDING_API = {
-            baseUrl: '{{ url('/api/v1') }}',
-            csrfToken: '{{ csrf_token() }}'
-        };
+        // Script inisialisasi SPA sudah dipindah ke navigation.js
     </script>
     
     {{-- JavaScript Modular --}}
@@ -133,17 +130,18 @@
                 document.body.style.overflow = '';
             }
             
-            // Initialize on DOM ready
-            document.addEventListener('DOMContentLoaded', () => {
-                if (document.getElementById('newsHomeGrid')) {
-                    populateNewsHome();
+            // Auto-navigate based on URL hash when page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                const hash = window.location.hash.replace('#', '');
+                console.log('Page loaded with hash:', hash);
+                
+                if (hash && typeof navigateTo === 'function') {
+                    // Tunggu sebentar agar DOM ready
+                    setTimeout(function() {
+                        navigateTo(hash);
+                        updateActiveNav(hash);
+                    }, 100);
                 }
-                document.getElementById('newsModal')?.addEventListener('click', (e) => {
-                    if (e.target.id === 'newsModal') closeNewsModal();
-                });
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') closeNewsModal();
-                });
             });
         }
     </script>

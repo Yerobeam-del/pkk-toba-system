@@ -59,4 +59,10 @@ class Application extends Model
     {
         return $query->where('category', 'aplikasi');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'application_user')
+                    ->withTimestamps();
+    }
 }

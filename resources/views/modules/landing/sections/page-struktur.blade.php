@@ -20,7 +20,12 @@
                             <div class="org-card highlight">
                                 <div class="org-avatar">
                                     <img id="img-ketua-pembina" src="" alt="Ketua Pembina" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-ketua-pembina" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-ketua-pembina" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position">Ketua Pembina</div>
                                 <div class="org-name" id="name-ketua-pembina">Data belum diisi</div>
@@ -32,7 +37,12 @@
                             <div class="org-card highlight ketua-center-card">
                                 <div class="org-avatar org-avatar-lg">
                                     <img id="img-ketua-pkk" src="" alt="Ketua PKK" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-ketua-pkk" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-ketua-pkk" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position" style="font-size:0.7rem;">Ketua TP PKK</div>
                                 <div class="org-name" id="name-ketua-pkk" style="font-size:0.78rem;">Data belum diisi</div>
@@ -47,17 +57,27 @@
                                     <div class="staff-duo-item" id="staf-ahli-1">
                                         <div class="staff-duo-avatar">
                                             <img id="img-staf-1" src="" alt="Staf Ahli 1" onerror="this.style.display='none'">
-                                            <div class="avatar-placeholder" id="placeholder-staf-1" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;">👤</div>
+                                            <div class="avatar-placeholder" id="placeholder-staf-1" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                                    <circle cx="12" cy="7" r="4"/>
+                                                </svg>
+                                            </div>
                                         </div>
-                                        <div class="staff-duo-role">Anggota 1</div>
+                                        <div class="staff-duo-role">Staf Ahli 1</div>
                                         <div class="staff-duo-name" id="name-staf-1">Data belum diisi</div>
                                     </div>
                                     <div class="staff-duo-item" id="staf-ahli-2">
                                         <div class="staff-duo-avatar">
                                             <img id="img-staf-2" src="" alt="Staf Ahli 2" onerror="this.style.display='none'">
-                                            <div class="avatar-placeholder" id="placeholder-staf-2" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;">👤</div>
+                                            <div class="avatar-placeholder" id="placeholder-staf-2" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                                    <circle cx="12" cy="7" r="4"/>
+                                                </svg>
+                                            </div>
                                         </div>
-                                        <div class="staff-duo-role">Anggota 2</div>
+                                        <div class="staff-duo-role">Staf Ahli 2</div>
                                         <div class="staff-duo-name" id="name-staf-2">Data belum diisi</div>
                                     </div>
                                 </div>
@@ -71,7 +91,12 @@
                             <div class="org-card chair">
                                 <div class="org-avatar">
                                     <img id="img-sekretaris" src="" alt="Sekretaris" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-sekretaris" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-sekretaris" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position">Sekretaris</div>
                                 <div class="org-name" id="name-sekretaris">Data belum diisi</div>
@@ -81,7 +106,12 @@
                             <div class="org-card chair">
                                 <div class="org-avatar">
                                     <img id="img-bendahara" src="" alt="Bendahara" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-bendahara" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-bendahara" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position">Bendahara</div>
                                 <div class="org-name" id="name-bendahara">Data belum diisi</div>
@@ -97,7 +127,12 @@
                             <div class="org-card" style="background:linear-gradient(135deg,#234e52,#285e61);color:#fff;border:none;">
                                 <div class="org-avatar">
                                     <img id="img-pokja-1" src="" alt="Ketua I" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-pokja-1" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-pokja-1" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position" style="color:#f6e05e;">Ketua I</div>
                                 <div class="org-name" id="name-pokja-1" style="color:#fff;">Data belum diisi</div>
@@ -107,7 +142,12 @@
                             <div class="org-card" style="background:linear-gradient(135deg,#234e52,#285e61);color:#fff;border:none;">
                                 <div class="org-avatar">
                                     <img id="img-pokja-2" src="" alt="Ketua II" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-pokja-2" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-pokja-2" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position" style="color:#f6e05e;">Ketua II</div>
                                 <div class="org-name" id="name-pokja-2" style="color:#fff;">Data belum diisi</div>
@@ -117,7 +157,12 @@
                             <div class="org-card" style="background:linear-gradient(135deg,#234e52,#285e61);color:#fff;border:none;">
                                 <div class="org-avatar">
                                     <img id="img-pokja-3" src="" alt="Ketua III" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-pokja-3" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-pokja-3" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position" style="color:#f6e05e;">Ketua III</div>
                                 <div class="org-name" id="name-pokja-3" style="color:#fff;">Data belum diisi</div>
@@ -127,7 +172,12 @@
                             <div class="org-card" style="background:linear-gradient(135deg,#234e52,#285e61);color:#fff;border:none;">
                                 <div class="org-avatar">
                                     <img id="img-pokja-4" src="" alt="Ketua IV" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
-                                    <div class="avatar-placeholder" id="placeholder-pokja-4" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;">👤</div>
+                                    <div class="avatar-placeholder" id="placeholder-pokja-4" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#4a5568,#2d3748); display:flex;align-items:center;justify-content:center;color:#fff;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="org-position" style="color:#f6e05e;">Ketua IV</div>
                                 <div class="org-name" id="name-pokja-4" style="color:#fff;">Data belum diisi</div>
@@ -162,7 +212,6 @@
                     </div>
                     <div class="pokja-content" id="{{ $pokja['id'] }}">
                         <div class="pokja-members" id="members-{{ $pokja['id'] }}">
-                            {{-- Members will be injected here by JS. Fallback handled in JS. --}}
                             <div class="member-card"><div class="org-position">Ketua</div><div class="org-name">Data belum diisi</div></div>
                             <div class="member-card"><div class="org-position">Wakil Ketua</div><div class="org-name">Data belum diisi</div></div>
                             <div class="member-card"><div class="org-position">Sekretaris</div><div class="org-name">Data belum diisi</div></div>
@@ -176,14 +225,11 @@
 </div>
 
 <script>
-console.log('✅ Struktur script loaded (Static Layout Mode)');
+console.log('Struktur script loaded (Static Layout Mode)');
 let strukturDataLoaded = false;
 
 function forceRedrawConnectors() {
-    // Trigger window resize event
     window.dispatchEvent(new Event('resize'));
-    
-    // Or call drawTreeConnectors if function exists
     if (typeof drawTreeConnectors === 'function') {
         setTimeout(() => drawTreeConnectors(), 100);
     }
@@ -191,11 +237,11 @@ function forceRedrawConnectors() {
 
 async function loadStrukturData() {
     if (strukturDataLoaded) return;
-    console.log('🔄 Fetching struktur data...');
+    console.log('Fetching struktur data...');
     
     try {
         const response = await fetch('/api/v1/struktur');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
         
         const result = await response.json();
         if (!result.success) throw new Error(result.message);
@@ -208,10 +254,9 @@ async function loadStrukturData() {
         }, 150);
         
         strukturDataLoaded = true;
-        console.log('✅ Struktur populated successfully');
+        console.log('Struktur populated successfully');
     } catch (error) {
-        console.error('❌ Failed to load struktur:', error);
-        // Keep showing "Data belum diisi" if API fails
+        console.error('Failed to load struktur:', error);
     }
 }
 
@@ -236,28 +281,29 @@ function populateStrukturDOM(pengurus, pokjaList) {
 
     const findPos = (arr, pos) => arr.find(p => p.position === pos);
 
-    // 1. Pengurus Inti (Row 1 & 2)
+    // Pengurus Inti (Row 1 & 2)
     setCard('name-ketua-pembina', 'img-ketua-pembina', 'placeholder-ketua-pembina', findPos(pengurus, 'Ketua Pembina'));
     setCard('name-ketua-pkk', 'img-ketua-pkk', 'placeholder-ketua-pkk', findPos(pengurus, 'Ketua TP PKK'));
     setCard('name-sekretaris', 'img-sekretaris', 'placeholder-sekretaris', findPos(pengurus, 'Sekretaris'));
     setCard('name-bendahara', 'img-bendahara', 'placeholder-bendahara', findPos(pengurus, 'Bendahara'));
     
-    // Staf Ahli (ambil 2 pertama)
+    // Staf Ahli
     const staf = pengurus.filter(p => p.position === 'Staf Ahli');
     setCard('name-staf-1', 'img-staf-1', 'placeholder-staf-1', staf[0] || null);
     setCard('name-staf-2', 'img-staf-2', 'placeholder-staf-2', staf[1] || null);
 
-    // 2. Ketua I, II, III, IV (Row 3 - BERASAL DARI PENGURUS INTI, BUKAN POKJA)
+    // Ketua I, II, III, IV
     setCard('name-pokja-1', 'img-pokja-1', 'placeholder-pokja-1', findPos(pengurus, 'Ketua I'));
     setCard('name-pokja-2', 'img-pokja-2', 'placeholder-pokja-2', findPos(pengurus, 'Ketua II'));
     setCard('name-pokja-3', 'img-pokja-3', 'placeholder-pokja-3', findPos(pengurus, 'Ketua III'));
     setCard('name-pokja-4', 'img-pokja-4', 'placeholder-pokja-4', findPos(pengurus, 'Ketua IV'));
 
-    // 3. Anggota Pokja Sections
+    // Anggota Pokja Sections
     const pokjaIds = ['pokja1', 'pokja2', 'pokja3', 'pokja4'];
     const positionHierarchy = ['Ketua', 'Wakil Ketua', 'Sekretaris', 'Sekretaris Pokja', 'Anggota'];
+    
     pokjaIds.forEach((id, idx) => {
-        const container = document.getElementById(`members-${id}`);
+        const container = document.getElementById('members-' + id);
         if (!container) return;
         
         const members = pokjaList[idx]?.members || [];
@@ -268,35 +314,35 @@ function populateStrukturDOM(pengurus, pokjaList) {
             return (orderA === -1 ? 99 : orderA) - (orderB === -1 ? 99 : orderB);
         });
         
-        if (members.length === 0) return; // Biarkan fallback "Data belum diisi" tampil
+        if (members.length === 0) return;
         
         container.innerHTML = members.map(m => {
             const pos = m.position.toLowerCase();
-            // Biarkan CSS class yang mengatur warna
             const isStruktural = pos.includes('ketua') || pos.includes('wakil') || pos.includes('sekretaris');
             const roleClass = isStruktural ? (pos.includes('ketua') ? 'pos-ketua' : (pos.includes('wakil') ? 'pos-wakil' : 'pos-sekretaris')) : 'pos-anggota';
             
-            const initials = m.name ? m.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : '👤';
+            const initials = m.name ? m.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : '';
             
-            return `
-            <div class="member-card ${roleClass}">
-                <div class="org-avatar">
-                    ${m.photo 
-                        ? `<img src="${m.photo}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="avatar-placeholder" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">${initials}</div>`
-                        : `<div class="avatar-placeholder" style="width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">${initials}</div>`
-                    }
-                </div>
-                <div class="org-position">${m.position}</div>
-                <div class="org-name">${m.name}</div>
-            </div>`;
+            let avatarContent = '';
+            if (m.photo) {
+                avatarContent = '<img src="' + m.photo + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">';
+                avatarContent += '<div class="avatar-placeholder" style="display:none; width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">' + initials + '</div>';
+            } else {
+                avatarContent = '<div class="avatar-placeholder" style="width:100%;height:100%; background:linear-gradient(135deg,#cbd5e1,#94a3b8); display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">' + (initials || '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>') + '</div>';
+            }
+            
+            return '<div class="member-card ' + roleClass + '">' +
+                '<div class="org-avatar">' + avatarContent + '</div>' +
+                '<div class="org-position">' + m.position + '</div>' +
+                '<div class="org-name">' + m.name + '</div>' +
+            '</div>';
         }).join('');
     });
 }
 
 function togglePokja(pokjaId) {
     const content = document.getElementById(pokjaId);
-    const icon = document.getElementById(`icon-${pokjaId}`);
+    const icon = document.getElementById('icon-' + pokjaId);
     if (content && icon) {
         const isHidden = content.style.display === 'none' || !content.style.display;
         content.style.display = isHidden ? 'block' : 'none';

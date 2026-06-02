@@ -1,109 +1,129 @@
 @extends('admin.layouts.app')
 @section('title', 'Manajemen Struktur')
-@section('page-title', 'Manajemen Struktur Organisasi')
+@section('page-title', 'Struktur Organisasi')
 
 @section('content')
 <div style="margin-bottom:2rem">
+    
+    {{-- Header Section --}}
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
         <div>
-            <h1 style="font-size:1.75rem;font-weight:700;color:var(--primary);margin-bottom:0.25rem">Struktur Organisasi</h1>
-            <p style="color:var(--text-muted);margin:0">Kelola data sesuai bagan organisasi asli</p>
+            <h1 style="font-size:1.5rem;font-weight:800;color:var(--text-dark);margin:0 0 0.25rem 0;letter-spacing:-0.5px">Struktur Organisasi</h1>
+            <p style="color:var(--text-muted);margin:0;font-size:0.9rem">Kelola data sesuai bagan organisasi asli PKK Kabupaten Toba</p>
         </div>
-        <a href="{{ route('admin.struktur.create') }}" class="btn btn-primary">+ Tambah Anggota</a>
+        <a href="{{ route('admin.struktur.create') }}" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambah Anggota
+        </a>
     </div>
 
+    {{-- Success Message --}}
     @if(session('success'))
-    <div style="background:#f0fff4;border-left:4px solid var(--success);padding:1rem;margin-bottom:1.5rem;border-radius:8px;color:#276749">
-        {{ session('success') }}
+    <div style="background:#f0fdf4;padding:1rem;margin-bottom:1.5rem;border-radius:10px;color:#166534;display:flex;align-items:center;gap:0.75rem">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>{{ session('success') }}</span>
     </div>
     @endif
 
-    {{-- TABS: Sesuai Bagan Asli --}}
-    <div class="tab-nav-struktur">
-        <button class="tab-btn active" onclick="switchTab('pengurus', this)">Pengurus Inti (Ketua I-IV & Staf)</button>
-        <button class="tab-btn" onclick="switchTab('pokja1', this)">Pokja I ({{ $pokjaList->find(1)?->members_count ?? 0 }})</button>
-        <button class="tab-btn" onclick="switchTab('pokja2', this)">Pokja II ({{ $pokjaList->find(2)?->members_count ?? 0 }})</button>
-        <button class="tab-btn" onclick="switchTab('pokja3', this)">Pokja III ({{ $pokjaList->find(3)?->members_count ?? 0 }})</button>
-        <button class="tab-btn" onclick="switchTab('pokja4', this)">Pokja IV ({{ $pokjaList->find(4)?->members_count ?? 0 }})</button>
+    {{-- TABS: SEMUA TAB MUNCUL (Hardcoded) --}}
+    <div style="display:flex;gap:0.25rem;margin-bottom:1.5rem;border-bottom:1px solid rgba(0,0,0,0.06);padding-bottom:0.5rem;overflow-x:auto">
+        <button class="tab-btn active" onclick="switchTab('pengurus', this)" style="padding:0.6rem 1rem;border-radius:8px 8px 0 0;background:transparent;border:none;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;border-bottom:2px solid var(--primary)">
+            Pengurus Inti
+        </button>
+        <button class="tab-btn" onclick="switchTab('pokja1', this)" style="padding:0.6rem 1rem;border-radius:8px 8px 0 0;background:transparent;border:none;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent">
+            Pokja I
+        </button>
+        <button class="tab-btn" onclick="switchTab('pokja2', this)" style="padding:0.6rem 1rem;border-radius:8px 8px 0 0;background:transparent;border:none;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent">
+            Pokja II
+        </button>
+        <button class="tab-btn" onclick="switchTab('pokja3', this)" style="padding:0.6rem 1rem;border-radius:8px 8px 0 0;background:transparent;border:none;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent">
+            Pokja III
+        </button>
+        <button class="tab-btn" onclick="switchTab('pokja4', this)" style="padding:0.6rem 1rem;border-radius:8px 8px 0 0;background:transparent;border:none;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent">
+            Pokja IV
+        </button>
     </div>
 
-    <div class="card">
-        {{-- Tab Pengurus Inti --}}
-        <div id="tab-pengurus" class="tab-content-struktur active">
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>Foto</th><th>Nama</th><th>Jabatan</th><th>Aksi</th></tr></thead>
-                    <tbody>
-                        @forelse($pengurusInti as $m)
-                        <tr>
-                            <td>
-                                @if($m->photo_path)
-                                <img src="{{ asset('storage/'.$m->photo_path) }}" style="width:40px;height:40px;border-radius:50%;object-fit:cover">
-                                @else
-                                <div style="width:40px;height:40px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;color:#94a3b8">👤</div>
-                                @endif
-                            </td>
-                            <td style="font-weight:600">{{ $m->name }}</td>
-                            <td><span class="tag tag-role">{{ $m->position }}</span></td>
-                            <td class="actions">
-                                <a href="{{ route('admin.struktur.edit', $m) }}" class="btn-edit" title="Edit">✏️</a>
-                                <form action="{{ route('admin.struktur.destroy', $m) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus data ini?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn-del" title="Hapus">🗑️</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--text-muted)">Belum ada data. Silakan tambah Ketua Pembina, Ketua TP PKK, Ketua I-IV, dll.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+    {{-- Main Card --}}
+    <div class="card" style="padding:0;overflow:hidden">
+        
+        {{-- Tab 1: Pengurus Inti --}}
+        <div id="tab-pengurus" class="tab-content active">
+            @include('admin.partials.table', [
+                'data' => $pengurusInti ?? [], 
+                'emptyMessage' => 'Belum ada data pengurus inti.',
+                'editRoute' => 'admin.struktur.edit',
+                'deleteRoute' => 'admin.struktur.destroy'
+            ])
         </div>
 
-        {{-- Tabs Pokja I-IV --}}
-        @foreach($pokjaList as $pokja)
-        <div id="tab-pokja{{ $pokja->id }}" class="tab-content-struktur">
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>Foto</th><th>Nama</th><th>Jabatan</th><th>Aksi</th></tr></thead>
-                    <tbody>
-                        @forelse($pokja->members as $m)
-                        <tr>
-                            <td>
-                                @if($m->photo_path)
-                                <img src="{{ asset('storage/'.$m->photo_path) }}" style="width:40px;height:40px;border-radius:50%;object-fit:cover">
-                                @else
-                                <div style="width:40px;height:40px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;color:#94a3b8">👤</div>
-                                @endif
-                            </td>
-                            <td style="font-weight:600">{{ $m->name }}</td>
-                            <td><span class="tag tag-role">{{ $m->position }}</span></td>
-                            <td class="actions">
-                                <a href="{{ route('admin.struktur.edit', $m) }}" class="btn-edit">✏️</a>
-                                <form action="{{ route('admin.struktur.destroy', $m) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn-del">🗑️</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--text-muted)">Belum ada anggota di {{ $pokja->name }}.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+        {{-- Tab 2: Pokja I --}}
+        <div id="tab-pokja1" class="tab-content" style="display:none">
+            @php $pokja1 = $pokjaList->find(1); @endphp
+            @include('admin.partials.table', [
+                'data' => $pokja1->members ?? [], 
+                'emptyMessage' => 'Belum ada anggota di Pokja I.',
+                'editRoute' => 'admin.struktur.edit',
+                'deleteRoute' => 'admin.struktur.destroy'
+            ])
         </div>
-        @endforeach
+
+        {{-- Tab 3: Pokja II --}}
+        <div id="tab-pokja2" class="tab-content" style="display:none">
+            @php $pokja2 = $pokjaList->find(2); @endphp
+            @include('admin.partials.table', [
+                'data' => $pokja2->members ?? [], 
+                'emptyMessage' => 'Belum ada anggota di Pokja II.',
+                'editRoute' => 'admin.struktur.edit',
+                'deleteRoute' => 'admin.struktur.destroy'
+            ])
+        </div>
+
+        {{-- Tab 4: Pokja III --}}
+        <div id="tab-pokja3" class="tab-content" style="display:none">
+            @php $pokja3 = $pokjaList->find(3); @endphp
+            @include('admin.partials.table', [
+                'data' => $pokja3->members ?? [], 
+                'emptyMessage' => 'Belum ada anggota di Pokja III.',
+                'editRoute' => 'admin.struktur.edit',
+                'deleteRoute' => 'admin.struktur.destroy'
+            ])
+        </div>
+
+        {{-- Tab 5: Pokja IV --}}
+        <div id="tab-pokja4" class="tab-content" style="display:none">
+            @php $pokja4 = $pokjaList->find(4); @endphp
+            @include('admin.partials.table', [
+                'data' => $pokja4->members ?? [], 
+                'emptyMessage' => 'Belum ada anggota di Pokja IV.',
+                'editRoute' => 'admin.struktur.edit',
+                'deleteRoute' => 'admin.struktur.destroy'
+            ])
+        </div>
+
     </div>
 </div>
 
 <script>
 function switchTab(tabId, btn) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content-struktur').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + tabId).classList.add('active');
+    // Reset all tabs
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.style.color = 'var(--text-muted)';
+        b.style.borderBottom = '2px solid transparent';
+    });
+    // Hide all contents
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    
+    // Activate selected
+    btn.style.color = 'var(--primary)';
+    btn.style.borderBottom = '2px solid var(--primary)';
+    document.getElementById('tab-' + tabId).style.display = 'block';
 }
+
+// Init first tab on load
+document.addEventListener('DOMContentLoaded', () => {
+    const firstBtn = document.querySelector('.tab-btn');
+    if(firstBtn) switchTab('pengurus', firstBtn);
+});
 </script>
 @endsection

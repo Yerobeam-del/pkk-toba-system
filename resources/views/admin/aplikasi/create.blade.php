@@ -3,26 +3,37 @@
 @section('page-title', 'Tambah Aplikasi Baru')
 
 @section('content')
+
+{{-- Header --}}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+    <div>
+        <h1 style="font-size:1.5rem;font-weight:800;color:var(--text-dark);margin:0 0 0.25rem 0">Tambah Aplikasi</h1>
+        <p style="color:var(--text-muted);margin:0;font-size:0.9rem">Tambahkan aplikasi atau sistem informasi baru ke dalam daftar</p>
+    </div>
+    <a href="{{ route('admin.aplikasi.index') }}" class="btn" style="background:#f8fafc;color:var(--text-dark)">← Kembali</a>
+</div>
+
+{{-- Form Card --}}
 <div class="card">
     <form action="{{ route('admin.aplikasi.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
-        <div class="form-grid">
-            <div class="form-group full">
-                <label>Nama Aplikasi Lengkap *</label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Contoh: SIEDA (Sistem Informasi E-Dasawisma)">
-                <small style="color:var(--text-muted)">Nama lengkap aplikasi yang akan ditampilkan</small>
-            </div>
+        {{-- Nama Lengkap --}}
+        <div style="margin-bottom:1.5rem">
+            <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Nama Aplikasi Lengkap *</label>
+            <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Contoh: SIEDA - Sistem Informasi E-Dasawisma">
+            <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">Nama lengkap aplikasi yang akan ditampilkan di website</small>
         </div>
 
-        <div class="form-grid">
-            <div class="form-group">
-                <label>Nama Singkat *</label>
+        {{-- Short Name & Category --}}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+            <div>
+                <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Nama Singkat *</label>
                 <input type="text" name="short_name" class="form-control" value="{{ old('short_name') }}" required placeholder="Contoh: SIEDA" style="text-transform:uppercase">
-                <small style="color:var(--text-muted)">Singkatan unik untuk icon dan display</small>
+                <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">Singkatan unik untuk icon placeholder</small>
             </div>
-            <div class="form-group">
-                <label>Kategori *</label>
+            <div>
+                <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Kategori *</label>
                 <select name="category" class="form-control" required>
                     <option value="">-- Pilih Kategori --</option>
                     <option value="layanan" {{ old('category') == 'layanan' ? 'selected' : '' }}>Layanan</option>
@@ -31,140 +42,150 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Deskripsi Lengkap *</label>
+        {{-- Description --}}
+        <div style="margin-bottom:1.5rem">
+            <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Deskripsi Lengkap *</label>
             <textarea name="description" class="form-control" rows="3" required placeholder="Deskripsi detail tentang aplikasi, fitur, dan fungsionalitas">{{ old('description') }}</textarea>
-            <small style="color:var(--text-muted)">Deskripsi akan ditampilkan di landing page</small>
+            <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">Deskripsi akan ditampilkan di landing page</small>
         </div>
 
-        <div class="form-group">
-            <label>Poin-Poin Fitur Aplikasi</label>
-            <small style="color:var(--text-muted);display:block;margin-bottom:1rem">
-                Tambahkan 2-5 poin keunggulan/fitur aplikasi (minimal 2, maksimal 5)
-            </small>
+        {{-- Features --}}
+        <div style="margin-bottom:1.5rem">
+            <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Poin-Poin Fitur Aplikasi</label>
+            <small style="color:var(--text-muted);display:block;margin-bottom:1rem;font-size:0.8rem">Tambahkan 2-5 poin keunggulan/fitur aplikasi</small>
             
             <div id="features-container">
                 {{-- Fitur 1 --}}
-                <div class="feature-item" style="display:flex;gap:8px;margin-bottom:8px">
+                <div class="feature-item" style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
                     <input type="text" name="features[]" class="form-control" 
                         value="{{ old('features.0', 'Terintegrasi dengan data PKK') }}" 
                         placeholder="Contoh: Terintegrasi dengan data PKK" required>
-                    <button type="button" class="btn btn-outline" onclick="removeFeature(this)" 
-                            style="padding:0.5rem;min-width:36px" title="Hapus poin" disabled>🗑️</button>
+                    <button type="button" class="btn" onclick="removeFeature(this)" 
+                            style="background:#f8fafc;color:#ef4444;padding:0.6rem;min-width:40px;border-radius:8px" title="Hapus poin" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
                 </div>
                 {{-- Fitur 2 --}}
-                <div class="feature-item" style="display:flex;gap:8px;margin-bottom:8px">
+                <div class="feature-item" style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
                     <input type="text" name="features[]" class="form-control" 
                         value="{{ old('features.1', 'Akses real-time 24/7') }}" 
                         placeholder="Contoh: Akses real-time 24/7" required>
-                    <button type="button" class="btn btn-outline" onclick="removeFeature(this)" 
-                            style="padding:0.5rem;min-width:36px" title="Hapus poin" disabled>🗑️</button>
+                    <button type="button" class="btn" onclick="removeFeature(this)" 
+                            style="background:#f8fafc;color:#ef4444;padding:0.6rem;min-width:40px;border-radius:8px" title="Hapus poin" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
                 </div>
                 {{-- Fitur 3 --}}
-                <div class="feature-item" style="display:flex;gap:8px;margin-bottom:8px">
+                <div class="feature-item" style="display:flex;gap:0.75rem;margin-bottom:0.75rem">
                     <input type="text" name="features[]" class="form-control" 
                         value="{{ old('features.2', 'Keamanan data terjamin') }}" 
                         placeholder="Contoh: Keamanan data terjamin" required>
-                    <button type="button" class="btn btn-outline" onclick="removeFeature(this)" 
-                            style="padding:0.5rem;min-width:36px" title="Hapus poin">🗑️</button>
+                    <button type="button" class="btn" onclick="removeFeature(this)" 
+                            style="background:#f8fafc;color:#ef4444;padding:0.6rem;min-width:40px;border-radius:8px" title="Hapus poin">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
                 </div>
             </div>
             
-            <button type="button" id="add-feature-btn" class="btn btn-outline" onclick="addFeature()" 
-                    style="margin-top:0.5rem;width:100%">
-                ➕ Tambah Poin Fitur
+            <button type="button" id="add-feature-btn" class="btn" onclick="addFeature()" 
+                    style="margin-top:0.5rem;width:100%;background:#f8fafc;color:var(--text-dark);display:inline-flex;align-items:center;justify-content:center;gap:0.5rem">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Tambah Poin Fitur
             </button>
             
-            <small id="features-warning" style="color:#e53e3e;display:none;margin-top:0.5rem">
+            <small id="features-warning" style="color:#ef4444;display:none;margin-top:0.5rem;font-size:0.85rem">
                 ⚠️ Maksimal 5 poin fitur
             </small>
         </div>
 
-        <div class="form-grid">
-            <div class="form-group">
-                <label>Status Aplikasi *</label>
+        {{-- Status & URL --}}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+            <div>
+                <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Status Aplikasi *</label>
                 <select name="status" class="form-control" required onchange="toggleUrlField(this.value)">
                     <option value="">-- Pilih Status --</option>
-                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>✅ Aktif - Siap Digunakan</option>
-                    <option value="maintenance" {{ old('status') == 'maintenance' ? 'selected' : '' }}>🔧 Dalam Maintenance - Sedang Perbaikan</option>
-                    <option value="development" {{ old('status') == 'development' ? 'selected' : '' }}>🚧 Dalam Pengembangan - Coming Soon</option>
+                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Aktif - Siap Digunakan</option>
+                    <option value="maintenance" {{ old('status') == 'maintenance' ? 'selected' : '' }}>Dalam Maintenance - Sedang Perbaikan</option>
+                    <option value="development" {{ old('status') == 'development' ? 'selected' : '' }}>Dalam Pengembangan - Coming Soon</option>
                 </select>
-                <small style="color:var(--text-muted);margin-top:4px;display:block">
-                    Status menentukan tampilan di landing page
-                </small>
+                <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">Status menentukan tampilan di landing page</small>
             </div>
-            <div class="form-group" id="urlField">
-                <label>URL Aplikasi</label>
+            <div id="urlField">
+                <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">URL Aplikasi</label>
                 <input type="url" name="url" class="form-control" value="{{ old('url') }}" placeholder="https://example.com">
-                <small style="color:var(--text-muted)">Link untuk mengakses aplikasi (kosongkan jika dalam pengembangan)</small>
+                <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">Link untuk mengakses aplikasi</small>
             </div>
         </div>
 
-        <div class="form-grid">
-            <div class="form-group">
-                <label>Icon/Logo Aplikasi</label>
+        {{-- Icon & Sort Order --}}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+            <div>
+                <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Icon/Logo Aplikasi</label>
                 <input type="file" name="icon" class="form-control" accept="image/*" id="iconInput">
                 
-                {{-- Preview hanya muncul jika user memilih file --}}
-                <div id="iconPreview" style="margin-top:10px; display:none">
-                    <img id="previewImg" src="" style="width:100px;height:100px;border-radius:12px;object-fit:cover;box-shadow:0 4px 8px rgba(0,0,0,0.1);border:2px solid var(--border)">
-                    <span style="display:block;font-size:0.8rem;color:var(--text-muted);margin-top:4px">Preview Icon</span>
+                {{-- Preview --}}
+                <div id="iconPreview" style="margin-top:1rem;display:none">
+                    <img id="previewImg" src="" style="width:80px;height:80px;border-radius:12px;object-fit:cover;background:#f8fafc">
+                    <span style="display:block;font-size:0.8rem;color:var(--text-muted);margin-top:0.4rem">Preview Icon</span>
                 </div>
                 
-                <small style="color:var(--text-muted);display:block;margin-top:4px">
+                <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">
                     Format: JPG/PNG/WebP, maks 2MB. Ukuran ideal: 200x200px
                 </small>
             </div>
-
-            <script>
-            // Preview icon saat dipilih
-            document.getElementById('iconInput')?.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById('previewImg').src = e.target.result;
-                        document.getElementById('iconPreview').style.display = 'block';
-                        document.getElementById('placeholderPreview').style.display = 'none';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Update placeholder saat short_name berubah
-            document.querySelector('input[name="short_name"]')?.addEventListener('input', function(e) {
-                const initial = e.target.value.charAt(0).toUpperCase() || 'A';
-                const placeholderDiv = document.querySelector('#placeholderPreview div');
-                if (placeholderDiv) {
-                    placeholderDiv.textContent = initial;
-                }
-            });
-            </script>
-            <div class="form-group">
-                <label>Urutan Tampil</label>
-                <input type="number" name="sort_order" class="form-control" value="{{ old('sort_order', 0) }}" min="0">
-                <small style="color:var(--text-muted)">Semakin kecil angka, semakin awal tampil</small>
+            <div>
+                <label style="font-weight:600;display:block;margin-bottom:0.5rem;font-size:0.9rem">Urutan Tampil</label>
+                <input type="number" name="sort_order" class="form-control" value="{{ old('sort_order', $nextSortOrder) }}" min="1" readonly style="background:#f8fafc;cursor:not-allowed">
+                <small style="color:var(--text-muted);display:block;margin-top:0.4rem;font-size:0.8rem">
+                    Otomatis terisi (urutan berikutnya: <strong style="color:var(--primary)">{{ $nextSortOrder }}</strong>). 
+                    Semakin kecil angka, semakin awal tampil.
+                </small>
             </div>
         </div>
 
-        <div class="form-group">
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+        {{-- Is Active Checkbox --}}
+        <div style="margin-bottom:2rem">
+            <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer">
                 <input type="checkbox" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }} style="width:18px;height:18px;cursor:pointer">
-                <span style="font-weight:600">Tampilkan di Website</span>
+                <span style="font-weight:600;font-size:0.95rem">Tampilkan di Website</span>
             </label>
-            <small style="color:var(--text-muted);display:block;margin-top:4px;margin-left:26px">
+            <small style="color:var(--text-muted);display:block;margin-top:0.4rem;margin-left:25px;font-size:0.85rem">
                 Jika dicentang, aplikasi akan tampil di landing page. Jika tidak, aplikasi disembunyikan sementara.
             </small>
         </div>
 
-        <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:0.75rem">
-            <a href="{{ route('admin.aplikasi.index') }}" class="btn btn-outline">Batal</a>
-            <button type="submit" class="btn btn-primary">💾 Simpan Aplikasi</button>
+        {{-- Action Buttons --}}
+        <div style="display:flex;gap:0.75rem;justify-content:flex-end;padding-top:1rem;border-top:1px solid rgba(0,0,0,0.04)">
+            <a href="{{ route('admin.aplikasi.index') }}" class="btn" style="background:#f8fafc;color:var(--text-dark)">Batal</a>
+            <button type="submit" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Simpan Aplikasi
+            </button>
         </div>
     </form>
 </div>
 
 <script>
+// Preview icon saat dipilih
+document.getElementById('iconInput')?.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewImg').src = e.target.result;
+            document.getElementById('iconPreview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Update placeholder saat short_name berubah
+document.querySelector('input[name="short_name"]')?.addEventListener('input', function(e) {
+    const initial = e.target.value.charAt(0).toUpperCase() || 'A';
+    // Optional: update placeholder preview if you have one
+});
+
+// Feature functions
 function addFeature() {
     const container = document.getElementById('features-container');
     const currentCount = container.querySelectorAll('.feature-item').length;
@@ -178,15 +199,15 @@ function addFeature() {
     
     const div = document.createElement('div');
     div.className = 'feature-item';
-    div.style.cssText = 'display:flex;gap:8px;margin-bottom:8px';
+    div.style.cssText = 'display:flex;gap:0.75rem;margin-bottom:0.75rem';
     div.innerHTML = `
-        <input type="text" name="features[]" class="form-control" 
-               placeholder="Masukkan poin fitur" required>
-        <button type="button" class="btn btn-outline" onclick="removeFeature(this)" 
-                style="padding:0.5rem;min-width:36px" title="Hapus poin">🗑️</button>
+        <input type="text" name="features[]" class="form-control" placeholder="Masukkan poin fitur" required>
+        <button type="button" class="btn" onclick="removeFeature(this)" 
+                style="background:#f8fafc;color:#ef4444;padding:0.6rem;min-width:40px;border-radius:8px" title="Hapus poin">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+        </button>
     `;
     container.appendChild(div);
-    
     updateDeleteButtons();
 }
 
@@ -199,7 +220,7 @@ function removeFeature(btn) {
         return;
     }
     
-    btn.parentElement.remove();
+    btn.closest('.feature-item').remove();
     updateDeleteButtons();
 }
 
@@ -208,23 +229,23 @@ function updateDeleteButtons() {
     const items = container.querySelectorAll('.feature-item');
     const addBtn = document.getElementById('add-feature-btn');
     
-    // Enable/disable delete buttons
-    items.forEach((item, index) => {
+    items.forEach(item => {
         const deleteBtn = item.querySelector('button[onclick="removeFeature(this)"]');
         if (items.length <= 2) {
             deleteBtn.disabled = true;
-            deleteBtn.style.opacity = '0.3';
+            deleteBtn.style.opacity = '0.4';
+            deleteBtn.style.cursor = 'not-allowed';
         } else {
             deleteBtn.disabled = false;
             deleteBtn.style.opacity = '1';
+            deleteBtn.style.cursor = 'pointer';
         }
     });
     
-    // Show/hide add button
     if (items.length >= 5) {
         addBtn.style.display = 'none';
     } else {
-        addBtn.style.display = 'block';
+        addBtn.style.display = 'inline-flex';
     }
 }
 
@@ -235,12 +256,12 @@ function toggleUrlField(status) {
     if (status === 'development') {
         urlField.style.opacity = '0.5';
         urlInput.disabled = true;
-        urlInput.value = '#'; // ✅ Set value ke #
-        urlInput.removeAttribute('required'); // ✅ Hapus required
+        urlInput.value = '#';
+        urlInput.removeAttribute('required');
     } else {
         urlField.style.opacity = '1';
         urlInput.disabled = false;
-        if (urlInput.value === '#') urlInput.value = ''; // ✅ Clear jika bukan development
+        if (urlInput.value === '#') urlInput.value = '';
     }
 }
 
@@ -248,6 +269,8 @@ function toggleUrlField(status) {
 document.addEventListener('DOMContentLoaded', () => {
     const statusSelect = document.querySelector('select[name="status"]');
     if (statusSelect) toggleUrlField(statusSelect.value);
+    updateDeleteButtons();
 });
 </script>
+
 @endsection

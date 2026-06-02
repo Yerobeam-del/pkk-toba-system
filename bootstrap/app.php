@@ -11,7 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'can.access' => \App\Http\Middleware\CanAccessApplication::class,
+            'sidongan.auth' => \App\Http\Middleware\SidonganAuthenticate::class,
+            
+            // Tambahkan namespace lengkap
+            'permission' => \App\Http\Middleware\CheckPermission::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

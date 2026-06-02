@@ -7,6 +7,8 @@
         </div>
     </div>
     <ul class="sidebar-nav">
+        
+        {{-- Beranda (Biasanya boleh diakses semua) --}}
         <li>
             <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -16,6 +18,9 @@
                 Beranda
             </a>
         </li>
+
+        {{-- Kelola Beranda (Hero Slider) --}}
+        @if(auth()->user()->hasPermission('manage-hero-slider'))
         <li>
             <a href="{{ route('admin.hero-sliders.index') }}" class="{{ request()->routeIs('admin.hero-sliders.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -26,6 +31,10 @@
                 Kelola Beranda
             </a>
         </li>
+        @endif
+
+        {{-- Struktur --}}
+        @if(auth()->user()->hasPermission('manage-struktur'))
         <li>
             <a href="{{ route('admin.struktur.index') }}" class="{{ request()->routeIs('admin.struktur.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -35,6 +44,10 @@
                 Struktur
             </a>
         </li>
+        @endif
+
+        {{-- Aplikasi --}}
+        @if(auth()->user()->hasPermission('manage-aplikasi'))
         <li>
             <a href="{{ route('admin.aplikasi.index') }}" class="{{ request()->routeIs('admin.aplikasi.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -44,6 +57,10 @@
                 Aplikasi
             </a>
         </li>
+        @endif
+
+        {{-- Berita (DANIEL PUNYA INI) --}}
+        @if(auth()->user()->hasPermission('manage-berita'))
         <li>
             <a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -53,6 +70,10 @@
                 Berita
             </a>
         </li>
+        @endif
+
+        {{-- Desa --}}
+        @if(auth()->user()->hasPermission('manage-desa'))
         <li>
             <a href="{{ route('admin.desa.index') }}" class="{{ request()->routeIs('admin.desa.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -62,6 +83,10 @@
                 Desa
             </a>
         </li>
+        @endif
+
+        {{-- SK & Dokumen --}}
+        @if(auth()->user()->hasPermission('manage-dokumen'))
         <li>
             <a href="{{ route('admin.sk.index') }}" class="{{ request()->routeIs('admin.sk.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -72,6 +97,10 @@
                 SK & Dokumen
             </a>
         </li>
+        @endif
+
+        {{-- Template --}}
+        @if(auth()->user()->hasPermission('manage-template'))
         <li>
             <a href="{{ route('admin.template.index') }}" class="{{ request()->routeIs('admin.template.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -81,6 +110,10 @@
                 Template
             </a>
         </li>
+        @endif
+
+        {{-- Tentang --}}
+        @if(auth()->user()->hasPermission('manage-tentang'))
         <li>
             <a href="{{ route('admin.tentang.index') }}" class="{{ request()->routeIs('admin.tentang.*') ? 'active' : '' }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -90,5 +123,7 @@
                 Tentang
             </a>
         </li>
+        @endif
+
     </ul>
 </aside>

@@ -102,6 +102,18 @@ class DesaController extends Controller
         return redirect()->route('admin.desa.index')->with('success', 'Desa berhasil diperbarui.');
     }
 
+    public function getMaxSortOrder()
+    {
+        $maxSortOrder = \App\Models\Desa::max('sort_order') ?? 0;
+        
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'max_sort_order' => $maxSortOrder
+            ]
+        ]);
+    }
+
     public function destroy(Desa $desa)
     {
         if ($desa->image) {

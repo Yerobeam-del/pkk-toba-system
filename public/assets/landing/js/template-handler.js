@@ -91,17 +91,34 @@ function renderTemplateCard(template) {
 function _renderGrid(dataToRender = window.templateData) {
     const grid = document.getElementById('templateGrid');
     const loading = document.getElementById('loadingState');
-    const empty = document.getElementById('emptyState');
+    let empty = document.getElementById('emptyState');
+    
     if (!grid) return;
     if (loading) loading.style.display = 'none';
+    
     if (!dataToRender || dataToRender.length === 0) {
         grid.style.display = 'none';
-        if (empty) { empty.style.display = 'block'; empty.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--text-muted)">Tidak ada template yang ditemukan</div>'; }
+        
+        // CREATE empty state if not exists
+        if (!empty) {
+            empty = document.createElement('div');
+            empty.id = 'emptyState';
+            empty.style.cssText = 'display: block; text-align: center; padding: 5rem 2rem; max-width: 650px; margin: 0 auto;';
+            empty.innerHTML = `
+                <div style="width: 120px; height: 120px; margin: 0 auto 2rem; background: linear-gradient(135deg, rgba(15,107,99,0.1), rgba(20,184,166,0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0f6b63" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <h3 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin: 0 0 0.75rem 0;">Belum Ada Template</h3>
+                <p style="color: #64748b; font-size: 1.05rem; line-height: 1.7; margin: 0 auto 2rem; max-width: 500px;">Template surat dan formulir akan segera diunggah. Silakan kunjungi kembali nanti untuk update terbaru.</p>
+                <a onclick="navigateTo('beranda')" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; background: linear-gradient(135deg, #0f6b63, #14b8a6); color: #fff; border-radius: 12px; font-weight: 600; text-decoration: none; cursor: pointer;">Kembali ke Beranda</a>
+            `;
+            grid.parentNode.insertBefore(empty, grid.nextSibling);
+        } else {
+            empty.style.display = 'block';
+            empty.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--text-muted)">Tidak ada template yang ditemukan</div>';
+        }
         return;
     }
-    grid.style.display = 'grid';
-    if (empty) empty.style.display = 'none';
-    grid.innerHTML = dataToRender.map(t => renderTemplateCard(t)).join('');
 }
 
 /**

@@ -107,14 +107,56 @@
         
         {{-- Menu Desktop --}}
         <ul class="navbar-links" id="navLinks">
-            <li><a onclick="navigateTo('beranda'); updateActiveNav('beranda')" class="nav-link active-link" data-page="beranda">Beranda</a></li>
-            <li><a onclick="navigateTo('struktur'); updateActiveNav('struktur')" class="nav-link" data-page="struktur">Struktur</a></li>
-            <li><a onclick="navigateTo('aplikasi'); updateActiveNav('aplikasi')" class="nav-link" data-page="aplikasi">Aplikasi</a></li>
-            <li><a onclick="navigateTo('berita'); updateActiveNav('berita')" class="nav-link" data-page="berita">Berita</a></li>
-            <li><a onclick="navigateTo('desa'); updateActiveNav('desa')" class="nav-link" data-page="desa">Desa</a></li>
-            <li><a onclick="navigateTo('sk'); updateActiveNav('sk')" class="nav-link" data-page="sk">SK & Dokumen</a></li>
-            <li><a onclick="navigateTo('template'); updateActiveNav('template')" class="nav-link" data-page="template">Template</a></li>
-            <li><a onclick="navigateTo('tentang'); updateActiveNav('tentang')" class="nav-link" data-page="tentang">Tentang</a></li>
+            {{-- SPA Links --}}
+            <li>
+                <a href="{{ route('landing.home') }}" 
+                onclick="return handleNavClick(event, 'beranda')" 
+                class="nav-link active-link" 
+                data-page="beranda">Beranda</a>
+            </li>
+            <li>
+                <a href="{{ route('landing.home') }}#struktur" 
+                onclick="return handleNavClick(event, 'struktur')" 
+                class="nav-link" 
+                data-page="struktur">Struktur</a>
+            </li>
+            <li>
+                <a href="{{ route('landing.home') }}#aplikasi" 
+                onclick="return handleNavClick(event, 'aplikasi')" 
+                class="nav-link" 
+                data-page="aplikasi">Aplikasi</a>
+            </li>
+            
+            {{-- Route Link (Berita adalah halaman terpisah) --}}
+            <li>
+                <a href="{{ url('/berita') }}" class="nav-link" data-page="berita">Berita</a>
+            </li>
+            
+            {{-- SPA Links --}}
+            <li>
+                <a href="{{ route('landing.home') }}#desa" 
+                onclick="return handleNavClick(event, 'desa')" 
+                class="nav-link" 
+                data-page="desa">Desa</a>
+            </li>
+            <li>
+                <a href="{{ route('landing.home') }}#sk" 
+                onclick="return handleNavClick(event, 'sk')" 
+                class="nav-link" 
+                data-page="sk">SK & Dokumen</a>
+            </li>
+            <li>
+                <a href="{{ route('landing.home') }}#template" 
+                onclick="return handleNavClick(event, 'template')" 
+                class="nav-link" 
+                data-page="template">Template</a>
+            </li>
+            <li>
+                <a href="{{ route('landing.home') }}#tentang" 
+                onclick="return handleNavClick(event, 'tentang')" 
+                class="nav-link" 
+                data-page="tentang">Tentang</a>
+            </li>
         </ul>
 
         {{-- Tombol Hamburger --}}
@@ -123,43 +165,93 @@
         </button>
     </div>
 
-    {{-- Menu Mobile (Dropdown Vertikal) --}}
+    {{-- Menu Mobile --}}
     <div class="mobile-menu" id="mobileMenu">
-        <a onclick="handleMobileClick('beranda')" class="nav-link" data-page="beranda">Beranda</a>
-        <a onclick="handleMobileClick('struktur')" class="nav-link" data-page="struktur">Struktur</a>
-        <a onclick="handleMobileClick('aplikasi')" class="nav-link" data-page="aplikasi">Aplikasi</a>
-        <a onclick="handleMobileClick('berita')" class="nav-link" data-page="berita">Berita</a>
-        <a onclick="handleMobileClick('desa')" class="nav-link" data-page="desa">Desa</a>
-        <a onclick="handleMobileClick('sk')" class="nav-link" data-page="sk">SK & Dokumen</a>
-        <a onclick="handleMobileClick('template')" class="nav-link" data-page="template">Template</a>
-        <a onclick="handleMobileClick('tentang')" class="nav-link" data-page="tentang">Tentang</a>
+        <a href="{{ route('landing.home') }}" 
+        onclick="return handleNavClick(event, 'beranda')" 
+        class="nav-link" data-page="beranda">Beranda</a>
+        <a href="{{ route('landing.home') }}#struktur" 
+        onclick="return handleNavClick(event, 'struktur')" 
+        class="nav-link" data-page="struktur">Struktur</a>
+        <a href="{{ route('landing.home') }}#aplikasi" 
+        onclick="return handleNavClick(event, 'aplikasi')" 
+        class="nav-link" data-page="aplikasi">Aplikasi</a>
+        
+        {{-- Berita - Route terpisah --}}
+        <a href="{{ url('/berita') }}" class="nav-link" data-page="berita">Berita</a>
+        
+        <a href="{{ route('landing.home') }}#desa" 
+        onclick="return handleNavClick(event, 'desa')" 
+        class="nav-link" data-page="desa">Desa</a>
+        <a href="{{ route('landing.home') }}#sk" 
+        onclick="return handleNavClick(event, 'sk')" 
+        class="nav-link" data-page="sk">SK & Dokumen</a>
+        <a href="{{ route('landing.home') }}#template" 
+        onclick="return handleNavClick(event, 'template')" 
+        class="nav-link" data-page="template">Template</a>
+        <a href="{{ route('landing.home') }}#tentang" 
+        onclick="return handleNavClick(event, 'tentang')" 
+        class="nav-link" data-page="tentang">Tentang</a>
     </div>
 </nav>
 
 <script>
-    // 1. Fungsi Utama saat klik menu di HP
+    // FUNGSI BARU: Handle navigation untuk desktop & mobile
+    function handleNavClick(event, pageId) {
+        console.log('handleNavClick:', pageId);
+        console.log('Current href:', event.currentTarget.href);
+        
+        // Cek apakah ini halaman SPA
+        const isSPA = document.getElementById('page-beranda') !== null;
+        console.log('Is SPA?', isSPA);
+        
+        if (isSPA && typeof navigateTo === 'function') {
+            // Di SPA → prevent default & pakai SPA navigation
+            event.preventDefault();
+            navigateTo(pageId);
+            updateActiveNav(pageId);
+            toggleMobileMenu();
+            return false;
+        } else {
+            // Di halaman Blade terpisah → biarkan href bekerja
+            // URL sudah ada hash (#template, #struktur, dll)
+            console.log('Not SPA, navigating to:', event.currentTarget.href);
+            toggleMobileMenu();
+            return true;
+        }
+    }
+
+    // 1. Fungsi Utama saat klik menu di HP (untuk mobile menu)
     function handleMobileClick(pageId) {
-        if (typeof navigateTo === 'function') navigateTo(pageId);
-        updateActiveNav(pageId);
-        toggleMobileMenu(); // Tutup menu
+        console.log('📱 handleMobileClick:', pageId);
+        
+        if (typeof navigateTo === 'function') {
+            try {
+                navigateTo(pageId);
+                updateActiveNav(pageId);
+                toggleMobileMenu();
+                return false;
+            } catch(e) {
+                console.log('SPA navigation failed:', e);
+            }
+        }
+        toggleMobileMenu();
+        return true;
     }
 
     // 2. Fungsi Toggle Hamburger
     function toggleMobileMenu() {
         const btn = document.getElementById('hamburgerBtn');
         const menu = document.getElementById('mobileMenu');
-        btn.classList.toggle('active');
-        menu.classList.toggle('open');
+        if (btn) btn.classList.toggle('active');
+        if (menu) menu.classList.toggle('open');
     }
 
     // 3. Fungsi PENTING: Update Highlight Navbar (Kuning)
     function updateActiveNav(pageId) {
-        // Hapus kelas aktif dari SEMUA link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active-link');
         });
-        
-        // Tambah kelas aktif ke link yang sesuai (Desktop & Mobile)
         document.querySelectorAll(`.nav-link[data-page="${pageId}"]`).forEach(link => {
             link.classList.add('active-link');
         });
@@ -168,22 +260,24 @@
     // 4. Scroll Effect (Transparan -> Solid)
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) nav.classList.add('scrolled');
-        else nav.classList.remove('scrolled');
+        if (nav) {
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        }
     });
 
     // 5. FIX: Aktifkan menu SAAT RELOAD
     document.addEventListener('DOMContentLoaded', () => {
-        // Cek apakah ada hash di URL, jika tidak default ke 'beranda'
         const hash = window.location.hash.replace('#', '');
         const currentPage = hash || 'beranda';
-        
-        // Panggil fungsi highlight agar menu menyala kuning
         updateActiveNav(currentPage);
         
-        // Cek posisi scroll saat load agar background navbar sesuai
         if (window.scrollY > 50) {
-             document.getElementById('navbar').classList.add('scrolled');
+            const nav = document.getElementById('navbar');
+            if (nav) nav.classList.add('scrolled');
         }
+        
+        // Debug: Log navbar status
+        console.log('🎯 Navbar initialized. Current page:', currentPage);
     });
 </script>

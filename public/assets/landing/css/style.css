@@ -6,7 +6,7 @@
     --bg-light: #f7fafc;
     --text-dark: #1a202c;
     --text-muted: #718096;
-    --sieda-color: #14b8a6;
+    --sieda-color: #2563eb;
     --SIDONGAN-color: #c53030;
     --coming1-color: #6b46c1;
     --coming2-color: #14b8a6;
@@ -135,7 +135,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-dark); ba
 .app-icon-wrapper { width: 80px; height: 80px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 .app-card-home.sieda .app-icon-wrapper { background: linear-gradient(135deg, #2b6cb0, #3182ce); }
 .app-card-home.SIDONGAN .app-icon-wrapper { background: linear-gradient(135deg, #c53030, #e53e3e); }
-.app-icon-wrapper img { width: 50px; height: 50px; object-fit: contain; filter: brightness(0) invert(1); }
+.app-icon-wrapper img { width: 100px; height: 100px; object-fit: contain; filter: brightness(0) invert(1); }
 .app-card-body { padding: 0 2.5rem 2rem; flex: 1; display: flex; flex-direction: column; }
 .app-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.3rem; }
 .app-card-home.sieda .app-name { color: var(--sieda-color); }
@@ -235,75 +235,407 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-dark); ba
 .breadcrumb span { color: rgba(255,255,255,0.4); }
 .breadcrumb .current { color: var(--gold); }
 
-/* Struktur Organisasi Styles */
-.struktur-section { padding: 4rem 2rem; background: var(--bg-light); }
-.struktur-wrapper { max-width: 1400px; margin: 0 auto; }
-.struktur-tree { display: flex; flex-direction: column; align-items: center; }
-.struktur-row { display: flex; justify-content: center; gap: 30px; position: relative; width: 100%; flex-wrap: wrap; }
-#row-sekben { margin-top: 0.75rem; }
-#row-pokja { margin-top: 0; }
-.struktur-row-gap { width: 100%; height: 2.5rem; }
-.org-card { background: #fff; border-radius: 16px; padding: 16px 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); transition: all 0.3s ease; position: relative; z-index: 2; }
-.org-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.12); }
-.org-card.highlight { background: linear-gradient(135deg, #1a365d, #2c5282); color: #fff; border: none; box-shadow: 0 8px 30px rgba(30, 58, 95, 0.3); }
-.org-card.highlight:hover { box-shadow: 0 15px 45px rgba(30, 58, 95, 0.4); }
-.org-card.highlight .org-position { color: #f6e05e; }
-.org-card.highlight .org-name { color: #fff; }
-.org-card.chair { border: 2px solid var(--primary-light); }
-.org-avatar { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 8px; overflow: hidden; border: 3px solid #e2e8f0; }
-.org-card.highlight .org-avatar { border-color: rgba(255,255,255,0.4); }
-.org-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.org-avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; color: #fff; }
-.org-card.highlight .org-avatar-placeholder { background: rgba(255,255,255,0.2); }
-.org-position { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary-light); margin-bottom: 2px; line-height: 1.2; }
-.org-name { font-size: 0.72rem; font-weight: 500; color: #2d3748; line-height: 1.2; }
-.org-card.highlight .org-name { color: #fff; }
-.org-card .org-avatar-lg { width: 72px; height: 72px; border-width: 3px; }
-.pokja-section { background: #fff; border-radius: 20px; padding: 2rem; margin: 2rem auto; max-width: 1300px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); transition: all 0.3s ease; }
-.pokja-section:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+/* ==========================================
+   STRUKTUR ORGANISASI - CLEAN VERSION
+   ========================================== */
+
+.struktur-section { 
+    padding: 4rem 2rem; 
+    background: var(--bg-light); 
+}
+
+.struktur-wrapper { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.struktur-scroll { 
+    overflow-x: auto;
+    padding: 2rem 0;
+}
+
+.struktur-tree { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    min-width: 1000px;
+}
+
+/* --- ROW 1: TOP 3 --- */
+.top3-tree {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    gap: 2rem !important;
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto 3rem auto !important;
+}
+
+.top3-tree .org-card-wrapper { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Ukuran Card */
+.top3-tree .org-card {
+    width: 220px;
+    padding: 1.5rem 1rem;
+}
+
+/* Staf Ahli Container */
+.staff-combined-card {
+    width: 320px;
+    padding: 1.5rem 1rem;
+}
+
+.staff-duo-grid { 
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.staff-duo-item {
+    width: 130px;
+    padding: 0.75rem 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+}
+
+.staff-duo-avatar {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 0.5rem;
+}
+
+.staff-duo-role {
+    font-size: 0.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.staff-duo-name {
+    font-size: 0.65rem;
+    line-height: 1.3;
+}
+
+/* --- ROW 2: SEKRETARIS & BENDAHARA --- */
+#row-sekben {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+#row-sekben .org-card {
+    width: 200px;
+}
+
+/* --- ROW 3: KETUA POKJA --- */
+#row-pokja {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+#row-pokja .org-card {
+    width: 200px;
+    background: linear-gradient(135deg, #234e52, #285e61);
+    color: #fff;
+    border: none;
+}
+
+#row-pokja .org-card .org-position {
+    color: #f6e05e;
+}
+
+#row-pokja .org-card .org-name {
+    color: #fff;
+}
+
+/* --- CARD STYLES --- */
+.org-card { 
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.org-card:hover { 
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.org-card.highlight { 
+    background: linear-gradient(135deg, #1a365d, #2c5282);
+    color: #fff;
+    border: none;
+    box-shadow: 0 6px 20px rgba(30, 58, 95, 0.35);
+}
+
+.org-card.highlight .org-position { 
+    color: #f6e05e;
+}
+
+.org-card.highlight .org-name { 
+    color: #fff;
+}
+
+.org-card.chair { 
+    border: 2px solid var(--primary);
+}
+
+/* --- AVATAR --- */
+.org-avatar { 
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 0.75rem;
+    overflow: hidden;
+    border: 3px solid #e2e8f0;
+}
+
+.org-card.highlight .org-avatar { 
+    border-color: rgba(255,255,255,0.4);
+}
+
+.org-card .org-avatar-lg { 
+    width: 72px;
+    height: 72px;
+}
+
+.org-avatar img { 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- TYPOGRAPHY --- */
+.org-position { 
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary-light);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.org-name { 
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2d3748;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* --- POKJA SECTIONS --- */
+.pokja-section {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+    width: calc(100% - 2rem);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
 .pokja-section.p1 { border-left: 4px solid #e53e3e; }
 .pokja-section.p2 { border-left: 4px solid #3182ce; }
 .pokja-section.p3 { border-left: 4px solid #38a169; }
 .pokja-section.p4 { border-left: 4px solid #d69e2e; }
-.pokja-header { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; cursor: pointer; user-select: none; }
-.pokja-number { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; color: #fff; flex-shrink: 0; }
+
+.pokja-header { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+
+.pokja-number { 
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
 .pokja-number.p1 { background: linear-gradient(135deg, #c53030, #e53e3e); }
 .pokja-number.p2 { background: linear-gradient(135deg, #2b6cb0, #3182ce); }
 .pokja-number.p3 { background: linear-gradient(135deg, #276749, #38a169); }
 .pokja-number.p4 { background: linear-gradient(135deg, #975a16, #d69e2e); }
-.pokja-title { font-size: 1.05rem; font-weight: 700; color: var(--primary); }
-.pokja-subtitle { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; }
-.toggle-icon { width: 28px; height: 28px; border-radius: 50%; background: #edf2f7; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; flex-shrink: 0; }
-.toggle-icon.collapsed { transform: rotate(-90deg); }
-.toggle-icon svg { width: 14px; height: 14px; fill: #4a5568; }
-.pokja-content { overflow: hidden; transition: max-height 0.5s ease, opacity 0.3s ease; max-height: 3000px; opacity: 1; }
-.pokja-content.collapsed { max-height: 0; opacity: 0; }
-.pokja-members { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
-.member-card { background: #f7fafc; border-radius: 12px; padding: 12px 10px; text-align: center; width: 105px; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
-.member-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
-.member-card .org-avatar { width: 52px; height: 52px; border-width: 2px; }
-.member-card .org-position { font-size: 0.55rem; }
-.member-card .org-name { font-size: 0.62rem; }
-.member-card.pos-ketua { border: 2px solid #e53e3e; background: linear-gradient(135deg, #fff5f5, #fff); }
-.member-card.pos-wakil { border: 2px solid #3182ce; background: linear-gradient(135deg, #ebf8ff, #fff); }
-.member-card.pos-sekretaris { border: 2px solid #38a169; background: linear-gradient(135deg, #f0fff4, #fff); }
-.top3-tree { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); justify-content: center; align-items: start; column-gap: 3.25rem; row-gap: 1rem; position: relative; justify-items: center; }
-.top3-tree .org-card { margin: 0; }
-.top3-tree .org-card-wrapper { display: flex; flex-direction: column; align-items: center; position: relative; width: auto; min-width: 0; justify-self: center; }
-.top3-tree .org-card-wrapper:nth-child(1) { justify-self: end; }
-.top3-tree .org-card-wrapper:nth-child(2) { justify-self: center; }
-.top3-tree .org-card-wrapper:nth-child(3) { justify-self: start; }
-.top3-tree .org-card-wrapper .top-v-line { display: none; }
-.ketua-center-card { padding: 18px 14px; box-shadow: 0 10px 28px rgba(30, 58, 95, 0.35); }
-.staff-combined-card { padding: 14px 12px; }
-.staff-duo-grid { margin-top: 6px; display: flex; gap: 10px; align-items: stretch; justify-content: center; }
-.staff-duo-item { flex: 1 1 0; min-width: 0; padding: 10px 8px; border-radius: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.staff-duo-avatar { width: 58px; height: 58px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.15); flex-shrink: 0; }
-.staff-duo-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.staff-duo-name { font-size: 0.62rem; line-height: 1.35; font-weight: 600; color: #fff; text-align: center; }
-.staff-duo-role { font-size: 0.6rem; letter-spacing: 0.4px; text-transform: uppercase; color: #f6e05e; font-weight: 700; text-align: center; }
-.struktur-scroll { overflow: visible; padding-bottom: 0; }
-.scroll-hint { display: none; }
+
+.pokja-title { 
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+}
+
+.pokja-subtitle { 
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.toggle-icon { 
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #edf2f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icon.collapsed { 
+    transform: rotate(-90deg);
+}
+
+.pokja-content { 
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    max-height: 3000px;
+}
+
+.pokja-content.collapsed { 
+    max-height: 0;
+    opacity: 0;
+}
+
+.pokja-members { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.member-card { 
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    width: 110px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.member-card:hover { 
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.member-card .org-avatar { 
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 0.5rem;
+}
+
+.member-card .org-position { 
+    font-size: 0.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.member-card .org-name { 
+    font-size: 0.7rem;
+    line-height: 1.3;
+}
+
+.member-card.pos-ketua { 
+    border: 2px solid #e53e3e;
+    background: linear-gradient(135deg, #fff5f5, #fff);
+}
+
+.member-card.pos-wakil { 
+    border: 2px solid #3182ce;
+    background: linear-gradient(135deg, #ebf8ff, #fff);
+}
+
+.member-card.pos-sekretaris { 
+    border: 2px solid #38a169;
+    background: linear-gradient(135deg, #f0fff4, #fff);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .top3-tree {
+        gap: 1.5rem;
+    }
+    
+    .top3-tree .org-card {
+        width: 180px;
+    }
+    
+    .staff-combined-card {
+        width: 280px;
+    }
+    
+    .staff-duo-item {
+        width: 110px;
+    }
+    
+    #row-pokja .org-card {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .top3-tree {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+    }
+    
+    #wrapper-ketua-pembina,
+    #wrapper-staf-ahli {
+        width: 100% !important;
+        min-width: auto !important;
+    }
+    
+    .top3-tree .org-card,
+    .staff-combined-card {
+        width: 280px;
+    }
+    
+    .staff-duo-grid {
+        flex-direction: row;
+    }
+    
+    .staff-duo-item {
+        width: 120px;
+    }
+    
+    #row-sekben {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    #row-pokja {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    #row-pokja .org-card {
+        width: 220px;
+    }
+}
 
 /* Other Sections (Desa, SK, Template, Info, Stats, Footer, Modal) */
 .apps-full-section { padding: 4rem 2rem; background: var(--bg-light); }
@@ -940,4 +1272,152 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-dark); ba
 .mobile-menu {
     background-color: var(--navbar-bg);
     transition: background-color 0.4s ease;
+}
+
+/* ==========================================
+   FIX: STAF AHLI LAYOUT - REVISED
+   ========================================== */
+
+/* Container STAF AHLI - perlu lebih lebar */
+.staff-combined-card {
+    width: 340px !important;
+    min-width: 340px !important;
+    max-width: 340px !important;
+    padding: 1.5rem 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+}
+
+/* Grid untuk 2 staf - pastikan sejajar */
+.staff-duo-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    margin-top: 1rem !important;
+}
+
+/* Setiap item staf */
+.staff-duo-item {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 140px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0.75rem 0.5rem !important;
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+}
+
+/* Avatar staf */
+.staff-duo-avatar {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    margin: 0 auto 0.5rem !important;
+    background: #fff !important;
+}
+
+.staff-duo-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Text role dan name */
+.staff-duo-role {
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    color: #f6e05e !important;
+    text-align: center !important;
+    margin-bottom: 0.25rem !important;
+    width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.3 !important;
+}
+
+.staff-duo-name {
+    font-size: 0.7rem !important;
+    color: #fff !important;
+    text-align: center !important;
+    width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.4 !important;
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 1024px) {
+    .staff-combined-card {
+        width: 300px !important;
+        min-width: 300px !important;
+        max-width: 300px !important;
+    }
+    
+    .staff-duo-item {
+        max-width: 120px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .top3-tree {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .staff-combined-card {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+    }
+    
+    .staff-duo-grid {
+        flex-direction: row !important;
+        justify-content: center !important;
+    }
+    
+    .staff-duo-item {
+        max-width: 120px !important;
+    }
+}
+
+/* Trik: Paksa wrapper KIRI dan KANAN memiliki lebar SAMA (340px) */
+/* Ini membuat kartu tengah (Ketua TP PKK) otomatis berada di titik tengah */
+
+#wrapper-ketua-pembina {
+    width: 340px !important;
+    min-width: 340px !important;
+    display: flex;
+    justify-content: center; /* Pusatkan kartu di dalam wrapper ini */
+    align-items: center;
+}
+
+#wrapper-staf-ahli {
+    width: 340px !important;
+    min-width: 340px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pastikan kartu di dalam wrapper tidak melebar */
+#wrapper-ketua-pembina .org-card {
+    width: 220px !important;
+}
+
+#wrapper-staf-ahli .org-card {
+    width: 320px !important; /* Sesuaikan dengan konten staf ahli */
 }

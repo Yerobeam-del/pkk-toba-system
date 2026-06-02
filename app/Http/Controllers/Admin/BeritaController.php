@@ -7,6 +7,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class BeritaController extends Controller
 {
@@ -29,13 +30,20 @@ class BeritaController extends Controller
             'excerpt' => 'required|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|max:2048',
-            'is_published' => 'boolean',
+            'published_at' => 'nullable|date',
+            'is_published' => 'nullable|boolean',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        // ✅ CARA PASTI: Tambahkan timestamp untuk menjamin unik
+        $slug = Str::slug($validated['title']) . '-' . time() . '-' . rand(1000, 9999);
+        $validated['slug'] = $slug;
+        
         $validated['is_published'] = $request->boolean('is_published');
 
-        if ($validated['is_published'] && empty($validated['published_at'])) {
+        // Handle published_at
+        if (!empty($validated['published_at'])) {
+            $validated['published_at'] = \Carbon\Carbon::parse($validated['published_at']);
+        } elseif ($validated['is_published']) {
             $validated['published_at'] = now();
         }
 
@@ -46,6 +54,54 @@ class BeritaController extends Controller
         News::create($validated);
         
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan.');
+    }
+
+    /**
+     * Generate slug yang unik (untuk Create)
+     */
+    private function generateUniqueSlug($title)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $counter = 1;
+        
+        // ✅ Gunakan 'News::class' atau 'News' saja, JANGAN '\App\Models\News'
+        while (News::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+            
+            // Safety break
+            if ($counter > 100) {
+                $slug = $originalSlug . '-' . uniqid();
+                break;
+            }
+        }
+        
+        return $slug;
+    }
+
+    /**
+     * Generate slug yang unik (untuk Update, exclude ID sendiri)
+     */
+    private function generateUniqueSlugForUpdate($title, $excludeId)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $counter = 1;
+        
+        while (News::where('slug', $slug)
+               ->where('id', '!=', $excludeId)
+               ->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+            
+            if ($counter > 100) {
+                $slug = $originalSlug . '-' . uniqid();
+                break;
+            }
+        }
+        
+        return $slug;
     }
 
     public function edit(News $beritum)
@@ -62,14 +118,34 @@ class BeritaController extends Controller
             'content' => 'required|string',
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|max:2048',
-            'is_published' => 'boolean',
+            'is_published' => 'nullable|boolean',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        // ✅ GENERATE SLUG UNIK UNTUK UPDATE
+        $slug = Str::slug($validated['title']);
+        $originalSlug = $slug;
+        $counter = 1;
+        
+        while (\App\Models\News::where('slug', $slug)
+            ->where('id', '!=', $beritum->id)  // Exclude berita yang sedang diedit
+            ->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+            
+            if ($counter > 1000) {
+                $slug = $originalSlug . '-' . time();
+                break;
+            }
+        }
+        
+        $validated['slug'] = $slug;
         $validated['is_published'] = $request->boolean('is_published');
 
-        if ($validated['is_published'] && empty($validated['published_at'])) {
-        $validated['published_at'] = now();
+        // Handle published_at
+        if (!empty($validated['published_at'])) {
+            $validated['published_at'] = \Carbon\Carbon::parse($validated['published_at']);
+        } elseif ($validated['is_published'] && empty($beritum->published_at)) {
+            $validated['published_at'] = now();
         }
 
         if ($request->hasFile('image')) {

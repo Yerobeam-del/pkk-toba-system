@@ -74,6 +74,19 @@ function navigateTo(pageId) {
         }
     };
 
+    // Ambil base URL (hapus hash jika ada)
+    const baseUrl = window.location.href.split('#')[0];
+    
+    if (pageId === 'beranda') {
+        // Untuk Beranda: URL bersih tanpa hash
+        history.replaceState(null, null, baseUrl);
+    } else {
+        // Untuk section lain: tambahkan hash
+        history.replaceState(null, null, baseUrl + '#' + pageId);
+    }
+    
+    console.log('🔗 URL updated to:', window.location.href);
+
     // Wait for browser paint before loading data
     requestAnimationFrame(() => {
         requestAnimationFrame(loadPageData);
@@ -187,32 +200,84 @@ function loadSKDocuments() {
             }).join('');
             
             if (tableEl) tableEl.style.display = 'block';
-            console.log('✅ Table rendered successfully');
+            console.log(' Table rendered successfully');
         })
         .catch(err => {
             console.error('❌ Error:', err);
             if (loadingEl) {
-                loadingEl.innerHTML = `<div style="color:var(--danger);font-size:1.1rem">❌ Gagal memuat dokumen<br><small style="color:var(--text-muted)">${err.message}</small><button onclick="loadSKDocuments()" style="margin-top:1rem;padding:0.5rem 1.5rem;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer">🔄 Coba Lagi</button></div>`;
+                loadingEl.innerHTML = `<div style="color:var(--danger);font-size:1.1rem"> Gagal memuat dokumen<br><small style="color:var(--text-muted)">${err.message}</small><button onclick="loadSKDocuments()" style="margin-top:1rem;padding:0.5rem 1.5rem;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer">🔄 Coba Lagi</button></div>`;
             }
         });
 }
 
-// Init on load
+// Di assets/landing/js/navigation.js
+window.showPage = function(pageName) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Show target page
+    const targetPage = document.getElementById(pageName + 'Page');
+    if (targetPage) {
+        targetPage.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+    
+    // Update active nav link
+    document.querySelectorAll('.navbar-links a').forEach(link => {
+        link.classList.remove('active-link');
+    });
+    
+    const activeLink = document.querySelector(`.navbar-links a[data-page="${pageName}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active-link');
+    }
+};
+
+// ==========================================
+// SPA INITIALIZATION & HASH ROUTING
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('📄 DOMContentLoaded');
+    console.log('📄 DOMContentLoaded | SPA Router Starting...');
     
-    // Load berita home if exists
-    if (typeof populateNewsHome === 'function') {
-        console.log('🏠 Loading news home...');
-        populateNewsHome();
+    // 1. Baca hash dari URL (contoh: #template -> 'template')
+    let targetPage = window.location.hash.replace('#', '');
+    console.log('🔍 Hash detected:', targetPage || '(none)');
+    
+    // 2. Validasi apakah element halaman target benar-benar ada
+    const isValidPage = targetPage && document.getElementById('page-' + targetPage);
+    
+    // 3. Fallback ke 'beranda' jika hash kosong atau element tidak ditemukan
+    if (!isValidPage) {
+        targetPage = 'beranda';
+        console.log('️ Invalid/Empty hash. Defaulting to: beranda');
     }
     
-    // Check if struktur page is active on load
-    const activePage = document.querySelector('.page.active');
-    if (activePage && activePage.id === 'page-struktur') {
-        console.log('✅ Struktur page active on load');
-        if (typeof loadStrukturData === 'function') {
-            setTimeout(() => loadStrukturData(), 200);
+    // 4. Tunggu sebentar agar semua fungsi (navigateTo, updateActiveNav) siap
+    setTimeout(() => {
+        if (typeof navigateTo === 'function') {
+            console.log(' Triggering SPA navigation to:', targetPage);
+            navigateTo(targetPage);
+            
+            if (typeof updateActiveNav === 'function') {
+                updateActiveNav(targetPage);
+            }
+        } else {
+            console.error('❌ navigateTo function not found! Check script load order.');
         }
-    }
+    }, 50); // Delay 50ms untuk memastikan DOM & functions ready
+    
+    // 5. Load dynamic content per page (sesuai kode asli Anda)
+    const loadPageData = () => {
+        if (targetPage === 'struktur' && typeof loadStrukturData === 'function') loadStrukturData();
+        if (targetPage === 'aplikasi' && typeof loadAplikasiData === 'function') loadAplikasiData();
+        if (targetPage === 'berita' && typeof populateNewsFull === 'function') populateNewsFull();
+        if (targetPage === 'desa' && typeof populateDesa === 'function') populateDesa();
+        if (targetPage === 'sk' && typeof loadSKDocuments === 'function') loadSKDocuments();
+        if (targetPage === 'template' && typeof populateTemplates === 'function') populateTemplates();
+        if (targetPage === 'tentang' && typeof loadTentangKami === 'function') loadTentangKami();
+    };
+
+    requestAnimationFrame(() => requestAnimationFrame(loadPageData));
 });

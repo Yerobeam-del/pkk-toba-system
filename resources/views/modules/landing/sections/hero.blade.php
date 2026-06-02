@@ -2,7 +2,7 @@
     {{-- 1. Container Background Slider (Kosongkan, akan diisi JS dari Database) --}}
     <div class="hero-bg-slider" id="heroBgSlider">
         {{-- Fallback jika JS gagal load --}}
-        <div class="hero-bg-slide active" style="background-image: url('{{ asset('assets/landing/images/Background/Background_1.jpg') }}')"></div>
+        <div class="hero-bg-slide active" style="background-image: url('{{ asset('assets/landing/images/Background_1.jpg') }}')"></div>
     </div>
     
     <div class="hero-bg-overlay"></div>

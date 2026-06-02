@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class News extends Model
 {
@@ -12,8 +13,15 @@ class News extends Model
     protected $table = 'news';
     
     protected $fillable = [
-        'title', 'slug', 'category', 'excerpt', 'content', 
-        'image_path', 'published_at', 'is_published'
+        'title', 
+        'slug', 
+        'category',      // ← TAMBAHKAN INI (string dari form)
+        'category_id',   // ← Biarkan juga untuk migrasi nanti
+        'excerpt', 
+        'content', 
+        'image_path', 
+        'published_at', 
+        'is_published'
     ];
     
     protected $casts = [
@@ -25,10 +33,15 @@ class News extends Model
     {
         return $query->where('is_published', true)
                     ->where(function ($q) {
-                        // Jika published_at null, anggap langsung tayang
                         $q->whereNull('published_at')
                         ->orWhere('published_at', '<=', now());
                     })
                     ->orderByDesc('published_at');
+    }
+
+    // TAMBAHKAN RELASI INI
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

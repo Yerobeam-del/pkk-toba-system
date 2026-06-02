@@ -67,7 +67,7 @@
 
     {{-- Loading State --}}
     <div id="apps-home-loading" style="text-align: center; padding: 3rem; color: #64748b; font-size: 1.1rem; grid-column: 1 / -1;">
-        ⏳ Memuat data aplikasi...
+        Memuat data aplikasi...
     </div>
 
     {{-- Content Grid --}}
